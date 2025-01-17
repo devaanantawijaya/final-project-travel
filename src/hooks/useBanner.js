@@ -2,11 +2,11 @@ import { API_KEY, BASE_URL } from "@/helper/endpoint";
 import axios from "axios";
 import { useState } from "react";
 
-export const useBanner = () => {
-  const [banner, setBanner] = useState([]);
+export const useBanners = () => {
+  const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getBanner = async () => {
+  const getBanners = async () => {
     setLoading(true);
     try {
       const res = await axios.get(`${BASE_URL.API}/api/v1/banners`, {
@@ -14,12 +14,12 @@ export const useBanner = () => {
           apiKey: API_KEY,
         },
       });
-      setBanner(res.data.data);
+      setBanners(res.data.data);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
-  return { banner, loading, getBanner };
+  return { banners, loading, getBanners };
 };
