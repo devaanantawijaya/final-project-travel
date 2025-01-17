@@ -4,7 +4,7 @@ const HomePage = () => {
   return (
     <div>
       <div></div>
-      <div>Home Page</div>
+      <div>ini Home Page</div>
     </div>
   );
 };
