@@ -1,7 +1,7 @@
 const Button = (props) => {
-  const { title, bg } = props;
+  const { title, bg, p, text } = props;
   return (
-    <button className={`${bg} font-semibold px-7 py-1 rounded-2xl`}>
+    <button className={`${bg} font-semibold ${p} rounded-2xl ${text}`}>
       {title}
     </button>
   );
