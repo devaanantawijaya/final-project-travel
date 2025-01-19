@@ -4,10 +4,10 @@ import { useState } from "react";
 
 export const useBanners = () => {
   const [banners, setBanners] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingBanners, setLoadingBanners] = useState(false);
 
   const getBanners = async () => {
-    setLoading(true);
+    setLoadingBanners(true);
     try {
       const res = await axios.get(`${BASE_URL.API}/api/v1/banners`, {
         headers: {
@@ -18,8 +18,8 @@ export const useBanners = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      setLoadingBanners(false);
     }
   };
-  return { banners, loading, getBanners };
+  return { banners, loadingBanners, getBanners };
 };
