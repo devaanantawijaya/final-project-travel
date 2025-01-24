@@ -9,12 +9,10 @@ const Navbar = () => {
         <RxHamburgerMenu className="text-xl text-white font-extrabold" />
       </div>
       <div className="flex items-center gap-3">
-        <Image
+        <img
           src="/images/logo-travely.png"
           alt="logo travely"
           layout="fixed"
-          width={40}
-          height={40}
           className="object-contain"
         />
         <h1 className="font-bold text-xl hover:text-orange-400 text-white hidden xl:block">
