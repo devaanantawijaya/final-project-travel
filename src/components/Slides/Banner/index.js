@@ -58,7 +58,7 @@ const SlideBanners = () => {
               className="sm:aspect-[16/7] overflow-hidden w-full aspect-[1/1]"
               key={banner.id}
             >
-              <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+              <div className="absolute inset-0 bg-opacity-5 bg-gradient-to-b from-black/5 via-black/10 to-black/5"></div>
               <img
                 src={banner.imageUrl}
                 alt={banner.name}
