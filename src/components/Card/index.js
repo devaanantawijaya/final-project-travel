@@ -2,7 +2,7 @@ import Button from "../Button";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
 const Card = (props) => {
-  const { item, key, title, totalItems } = props;
+  const { item, key, title, totalItems, onClick } = props;
   // console.log(item)
   return (
     <div
@@ -11,12 +11,14 @@ const Card = (props) => {
     >
       <div className="">
         <img
-          src={item.imageUrl || (item.imageUrls && item.imageUrls[0])}
+          src={
+            (item.imageUrl !== "" ? item.imageUrl : "/images/404.png") ||
+            (item.imageUrls[0] !== "" ? item.imageUrls[0] : "/images/404.png")
+          }
           alt={item.title}
           className="rounded-lg aspect-[16/9] w-full object-cover object-center h-40 border-2 border-orange-200"
           onError={(e) => {
             e.target.src = "/images/404.png";
-            e.target.alt = "Default Image";
           }}
         />
       </div>
@@ -75,6 +77,7 @@ const Card = (props) => {
               </div>
             }
             text="text-orange-400 hover:text-orange-600"
+            onClick={onClick}
           />
         ) : (
           <Button
@@ -84,6 +87,7 @@ const Card = (props) => {
               </div>
             }
             text="text-orange-400 hover:text-orange-600"
+            onClick={onClick}
           />
         )}
       </div>
