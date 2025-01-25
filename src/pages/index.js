@@ -9,10 +9,20 @@ import useActivities from "@/hooks/useActivities";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { apiBenefit } from "./api/apiBenefit";
+import { useRouter } from "next/router";
+import { useBanners } from "@/hooks/useBanner";
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 const HomePage = () => {
+  const { banners, setLoadingBanners, getBanners } = useBanners();
   const { promos, LoadingPromos, getPromos } = usePromos();
   const { activities, loadingActivities, getActivities } = useActivities();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    getBanners();
+  }, []);
 
   useEffect(() => {
     getPromos();
@@ -22,18 +32,27 @@ const HomePage = () => {
     getActivities();
   }, []);
 
-  // console.log(apiBenefit.length);
+  console.log(activities);
 
   return (
     <div>
       <Navbar />
-      <div className="relative">
-        {/* Banner */}
-        <SlideBanners />
-        {/* CTA */}
-        <CTA wordFirst="Mulai" hookCTA="Travel" buttonCTA="Mulai Travel" />
-      </div>
+
+      <SlideBanners
+        items={banners}
+        title={
+          <div className="flex items-center h-10">
+            View More <IoIosArrowRoundForward className="text-3xl" />
+          </div>
+        }
+        wordFirst="Mulai"
+        hookCTA="Travel"
+        sentenceCTA="Klik sekarang untuk mulai dan buat perbedaan di hidup Anda!"
+        buttonCTA="Mulai Travel"
+      />
+
       <SlideResponsive title="Promo" items={promos} />
+
       <SlideResponsive
         title="Activity"
         items={activities}
@@ -41,6 +60,7 @@ const HomePage = () => {
           <Button
             title="All View"
             text="text-orange-400 hover:text-orange-600 font-semibold"
+            onClick={() => router.push(`/activity`)}
           />
         }
       />
