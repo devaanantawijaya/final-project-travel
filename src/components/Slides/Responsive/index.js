@@ -3,11 +3,14 @@ import Slider from "react-slick";
 import { IoIosArrowDropright } from "react-icons/io";
 import { IoIosArrowDropleft } from "react-icons/io";
 import Card from "@/components/Card";
+import { useRouter } from "next/router";
 
 const SlideResponsive = (props) => {
   const { title, items, extraTitle } = props;
 
   const sliderRef = useRef(null);
+
+  const router = useRouter();
 
   const settings = {
     infinite: false,
@@ -49,20 +52,20 @@ const SlideResponsive = (props) => {
   return (
     <div className="xl:pt-10 pt-5">
       <div className="flex justify-between items-center xl:px-20 px-4">
-        <div className="flex items-center pb-5 gap-x-3">
+        <div className="flex items-end pb-5 gap-x-3">
           <h1 className="font-bold text-2xl">{title}</h1>
           {extraTitle && <p>{extraTitle}</p>}
         </div>
         <div className="flex">
           <p
             onClick={() => sliderRef.current.slickPrev()}
-            className="cursor-pointer text-orange-400 hover:text-orange-600 text-2xl"
+            className="cursor-pointer text-orange-400 hover:bg-orange-400 text-2xl hover:text-white hover:rounded-full"
           >
             <IoIosArrowDropleft />
           </p>
           <p
             onClick={() => sliderRef.current.slickNext()}
-            className="cursor-pointer text-orange-400 hover:text-orange-600 text-2xl"
+            className="cursor-pointer text-orange-400 hover:bg-orange-400 text-2xl hover:text-white hover:rounded-full"
           >
             <IoIosArrowDropright />
           </p>
@@ -71,7 +74,12 @@ const SlideResponsive = (props) => {
       <div className="xl:px-16">
         <Slider {...settings} ref={sliderRef}>
           {items.map((item) => (
-            <Card item={item} key={item.id} title={title} />
+            <Card
+              item={item}
+              key={item.id}
+              title={title}
+              onClick={() => router.push(`/${title.toLowerCase()}/${item.id}`)}
+            />
           ))}
         </Slider>
       </div>
