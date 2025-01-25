@@ -4,14 +4,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React, { Component, useEffect } from "react";
 import Slider from "react-slick";
-import { useBanners } from "@/hooks/useBanner";
 
-const SlideBanners = () => {
-  const { banners, setLoadingBanners, getBanners } = useBanners();
+import Button from "@/components/Button";
 
-  useEffect(() => {
-    getBanners();
-  }, []);
+import CTA from "@/components/CTA";
+
+const SlideBanners = (props) => {
+  const { items, title, wordFirst, hookCTA, sentenceCTA, buttonCTA } = props;
 
   function SampleNextArrow(props) {
     const { onClick } = props;
@@ -51,22 +50,48 @@ const SlideBanners = () => {
 
   return (
     <div className="relative">
-      <Slider {...settings}>
-        {banners &&
-          banners.map((banner) => (
+      {items && items.length > 1 ? (
+        <Slider {...settings}>
+          {items.map((item, idx) => (
             <div
-              className="sm:aspect-[16/7] overflow-hidden w-full aspect-[1/1]"
-              key={banner.id}
+              className="sm:aspect-[16/7] overflow-hidden w-full aspect-[1/1] relative"
+              key={item.id ? item.id : idx}
             >
-              <div className="absolute inset-0 bg-opacity-5 bg-gradient-to-b from-black/5 via-black/10 to-black/5"></div>
+              <div className="absolute sm:bottom-10 flex justify-center z-50 sm:right-10">
+                <Button title={title} text="hover:text-orange-400 text-white" />
+              </div>
+              <div className="absolute inset-0 bg-opacity-5 bg-gradient-to-b from-black/50 via-black/80 to-black/50 z-10"></div>
               <img
-                src={banner.imageUrl}
-                alt={banner.name}
+                src={item.imageUrl ? item.imageUrl : item}
+                alt={item.name ? item.name : `banner-image-${idx}`}
                 className="w-full h-full object-cover object-center"
+                onError={(e) => {
+                  e.target.src = "/images/404.png";
+                }}
               />
             </div>
           ))}
-      </Slider>
+        </Slider>
+      ) : (
+        <div className="sm:aspect-[16/7] overflow-hidden w-full aspect-[1/1] relative">
+          <div className="absolute sm:bottom-10 bottom-3 right-3 flex justify-center z-50 sm:right-10">
+            <Button title={title} text="hover:text-orange-400 text-white" />
+          </div>
+          <div className="absolute inset-0 bg-opacity-5 bg-gradient-to-b from-black/50 via-black/80 to-black/50 z-0"></div>
+          <img
+            src={items && (items[0] !== "" ? items[0] : "/images/404.png")}
+            alt={`banner-image`}
+            className="w-full h-full object-cover object-center"
+          />
+        </div>
+      )}
+
+      <CTA
+        wordFirst={wordFirst}
+        hookCTA={hookCTA}
+        buttonCTA={buttonCTA}
+        sentenceCTA={sentenceCTA}
+      />
     </div>
   );
 };
