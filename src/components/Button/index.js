@@ -1,7 +1,10 @@
 const Button = (props) => {
-  const { title, bg, p, text } = props;
+  const { title, bg, p, text, onClick } = props;
   return (
-    <button className={`${bg} font-semibold ${p} rounded-2xl ${text}`}>
+    <button
+      className={`${bg} font-semibold ${p} rounded-2xl ${text}`}
+      onClick={onClick}
+    >
       {title}
     </button>
   );
