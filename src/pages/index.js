@@ -32,8 +32,6 @@ const HomePage = () => {
     getActivities();
   }, []);
 
-  console.log(activities);
-
   return (
     <div>
       <Navbar />
