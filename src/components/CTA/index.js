@@ -1,7 +1,7 @@
 import Button from "../Button";
 
 const CTA = (props) => {
-  const { buttonCTA, wordFirst, hookCTA, sentenceCTA } = props;
+  const { buttonCTA, wordFirst, hookCTA, sentenceCTA, onSubmit } = props;
 
   return (
     <div className="absolute top-1/3 right-0 w-full">
@@ -19,6 +19,7 @@ const CTA = (props) => {
             bg="bg-orange-400 hover:bg-orange-600"
             text="text-white xl:text-2xl"
             p="xl:px-10 xl:py-2 rounded-full px-4 py-1"
+            onClick={onSubmit}
           />
         </div>
       </div>
