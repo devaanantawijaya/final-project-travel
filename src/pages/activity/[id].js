@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { IoMdPin } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { getCookie } from "cookies-next";
 
 const DetailActivity = () => {
   const [detailActivities, setDetailActivities] = useState([]);
@@ -25,6 +26,23 @@ const DetailActivity = () => {
       );
 
       setDetailActivities(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAddtoCart = async () => {
+    try {
+      const payload = {
+        activityId: router.query.id,
+      };
+      const token = getCookie("JWT_TOKEN");
+      const res = await axios.post(`${BASE_URL.API}/api/v1/add-cart`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          apiKey: API_KEY,
+        },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -100,6 +118,7 @@ const DetailActivity = () => {
             )}
           </>
         }
+        onSubmit={handleAddtoCart}
       />
     </div>
   );
