@@ -10,7 +10,8 @@ import Button from "@/components/Button";
 import CTA from "@/components/CTA";
 
 const SlideBanners = (props) => {
-  const { items, title, wordFirst, hookCTA, sentenceCTA, buttonCTA } = props;
+  const { items, title, wordFirst, hookCTA, sentenceCTA, buttonCTA, onSubmit } =
+    props;
 
   function SampleNextArrow(props) {
     const { onClick } = props;
@@ -57,7 +58,7 @@ const SlideBanners = (props) => {
               className="sm:aspect-[16/7] overflow-hidden w-full aspect-[1/1] relative"
               key={item.id ? item.id : idx}
             >
-              <div className="absolute sm:bottom-10 flex justify-center z-50 sm:right-10">
+              <div className="absolute sm:bottom-10 bottom-3 right-3 flex justify-center z-50 sm:right-10">
                 <Button title={title} text="hover:text-orange-400 text-white" />
               </div>
               <div className="absolute inset-0 bg-opacity-5 bg-gradient-to-b from-black/50 via-black/80 to-black/50 z-10"></div>
@@ -91,6 +92,7 @@ const SlideBanners = (props) => {
         hookCTA={hookCTA}
         buttonCTA={buttonCTA}
         sentenceCTA={sentenceCTA}
+        onSubmit={onSubmit}
       />
     </div>
   );
