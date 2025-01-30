@@ -1,13 +1,15 @@
 import Button from "@/components/Button";
 import Navbar from "@/components/Navbar";
+import { useUser } from "@/context/userContext";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
 import axios from "axios";
 import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const LoginPage = () => {
+  const { setUser } = useUser();
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -22,6 +24,9 @@ const LoginPage = () => {
         },
       });
       setCookie("JWT_TOKEN", res.data.token);
+      const userData = res.data.data;
+      localStorage.setItem("user", JSON.stringify(userData));
+      setUser(userData);
       router.push("/");
     } catch (error) {
       console.log(error);
