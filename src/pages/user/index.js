@@ -7,12 +7,15 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 const UserPage = () => {
+  const { setUser } = useUser();
   const [activePage, setActivePage] = useState("Dashboard");
   const router = useRouter();
   const { user } = useUser();
 
   const handleLogout = () => {
     deleteCookie("JWT_TOKEN");
+    localStorage.removeItem("user");
+    setUser(null);
     router.push("/login");
   };
 
