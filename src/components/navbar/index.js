@@ -79,7 +79,11 @@ const Navbar = () => {
             <Link href="/user">
               <div className="flex gap-x-3 items-center">
                 <img
-                  src={user?.profilePictureUrl}
+                  src={
+                    user.profilePictureUrl !== null
+                      ? user.profilePictureUrl
+                      : "/images/user.png"
+                  }
                   alt="User Profile"
                   className="w-10 h-10 rounded-full"
                 />
