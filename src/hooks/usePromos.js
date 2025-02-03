@@ -5,14 +5,10 @@ import { useState } from "react";
 export const usePromos = () => {
   const [promos, setPromos] = useState([]);
   const [loadingPromos, setLoadingPromos] = useState(false);
-  const perPage = 4;
 
-  const getPromos = async (page) => {
+  const getPromos = async () => {
     setLoadingPromos(true);
     try {
-      const start = (page - 1) * perPage;
-      const end = start + perPage;
-
       const res = await axios.get(`${BASE_URL.API}/api/v1/promos`, {
         headers: {
           apiKey: API_KEY,
@@ -28,5 +24,3 @@ export const usePromos = () => {
 
   return { promos, loadingPromos, getPromos };
 };
-
-
