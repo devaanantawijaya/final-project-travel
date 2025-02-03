@@ -11,8 +11,16 @@ import CTA from "@/components/CTA";
 import { useRouter } from "next/router";
 
 const SlideBanners = (props) => {
-  const { items, title, wordFirst, hookCTA, sentenceCTA, buttonCTA, onSubmit } =
-    props;
+  const {
+    items,
+    title,
+    wordFirst,
+    hookCTA,
+    sentenceCTA,
+    buttonCTA,
+    onSubmit,
+    idCategory,
+  } = props;
 
   const router = useRouter();
 
@@ -68,7 +76,7 @@ const SlideBanners = (props) => {
                   onClick={
                     item.id
                       ? () => router.push(`/banner/${item.id}`)
-                      : () => router.push(`/activity`)
+                      : () => router.push(`/category/${idCategory}`)
                   }
                 />
               </div>
@@ -91,7 +99,7 @@ const SlideBanners = (props) => {
             <Button
               title={title}
               text="hover:text-orange-400 text-white"
-              onClick={() => router.push(`/activity`)}
+              onClick={() => router.push(`/category/${idCategory}`)}
             />
           </div>
           <div className="absolute inset-0 bg-opacity-5 bg-gradient-to-b from-black/50 via-black/80 to-black/50 z-0"></div>
