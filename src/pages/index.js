@@ -3,7 +3,6 @@ import Navbar from "@/components/Navbar";
 import { useEffect } from "react";
 import { usePromos } from "@/hooks/usePromos";
 import SlideBanners from "@/components/Slides/Banner";
-import CTA from "@/components/CTA";
 import SlideResponsive from "@/components/Slides/Responsive";
 import useActivities from "@/hooks/useActivities";
 import Button from "@/components/Button";
@@ -12,6 +11,7 @@ import { apiBenefit } from "./api/apiBenefit";
 import { useRouter } from "next/router";
 import { useBanners } from "@/hooks/useBanner";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { MdTravelExplore } from "react-icons/md";
 
 const HomePage = () => {
   const { banners, setLoadingBanners, getBanners } = useBanners();
@@ -46,10 +46,15 @@ const HomePage = () => {
         wordFirst="Mulai"
         hookCTA="Travel"
         sentenceCTA="Klik sekarang untuk mulai dan buat perbedaan di hidup Anda!"
-        buttonCTA="Mulai Travel"
+        buttonCTA={
+          <div className="flex items-center gap-x-2">
+            Mulai Travel <MdTravelExplore className="sm:text-5xl text-3xl" />
+          </div>
+        }
+        onSubmit={() => router.push("/activity")}
       />
 
-      <SlideResponsive title="Promo" items={promos} />
+      <SlideResponsive id="promo" title="Promo" items={promos} />
 
       <SlideResponsive
         title="Activity"
@@ -73,6 +78,22 @@ const HomePage = () => {
               item={item}
               totalItems={apiBenefit.length}
               title={item.type === "promo" ? "Cek Promo" : "Gas Travel"}
+              onClick={
+                item.type === "promo"
+                  ? () => {
+                      document
+                        .getElementById("promo")
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }
+                  : () => {
+                      router.push("/activity#travel");
+                      setTimeout(() => {
+                        document
+                          .getElementById("travel")
+                          ?.scrollIntoView({ behavior: "smooth" });
+                      }, 500);
+                    }
+              }
             />
           ))}
         </div>
