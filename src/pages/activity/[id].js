@@ -9,6 +9,7 @@ import { FaStar } from "react-icons/fa";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { getCookie } from "cookies-next";
 import { LiaLuggageCartSolid } from "react-icons/lia";
+import Swal from "sweetalert2";
 
 const DetailActivity = () => {
   const [detailActivities, setDetailActivities] = useState([]);
@@ -33,17 +34,65 @@ const DetailActivity = () => {
   };
 
   const handleAddtoCart = async () => {
+    const token = getCookie("JWT_TOKEN");
+
+    if (!token) {
+      return Swal.fire({
+        title: "You need to log in first!",
+        showDenyButton: true,
+        confirmButtonText: "Yes, log me in",
+        denyButtonText: "No",
+        customClass: {
+          confirmButton:
+            "bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded",
+          denyButton:
+            "bg-gray-100 text-orange-400 hover:text-white hover:bg-orange-400 font-bold py-2 px-4 rounded",
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.push("/login");
+        }
+      });
+    }
+
     try {
-      const payload = {
-        activityId: router.query.id,
-      };
-      const token = getCookie("JWT_TOKEN");
-      const res = await axios.post(`${BASE_URL.API}/api/v1/add-cart`, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          apiKey: API_KEY,
+      const result = await Swal.fire({
+        title: "Yakin ingin menambahkan ke keranjang belanja?",
+        showDenyButton: true,
+        confirmButtonText: "Yakin, Tambahkan",
+        denyButtonText: "Tidak",
+        customClass: {
+          confirmButton:
+            "bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded",
+          denyButton:
+            "bg-gray-100 text-orange-400 hover:text-white hover:bg-orange-400 font-bold py-2 px-4 rounded",
         },
       });
+
+      if (result.isConfirmed) {
+        // Jika "Yes", kirim data ke backend
+        const payload = {
+          activityId: router.query.id,
+        };
+
+        await axios.post(`${BASE_URL.API}/api/v1/add-cart`, payload, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            apiKey: API_KEY,
+          },
+        });
+
+        // popup "Sudah ditambahkan"
+        Swal.fire({
+          title: "Sudah Ditambahkan",
+          icon: "success",
+          draggable: true,
+          timer: 1100,
+          customClass: {
+            confirmButton: "bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded",
+          },
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -77,6 +126,7 @@ const DetailActivity = () => {
             )}
           </div>
         }
+        idCategory={detailActivities?.category?.id}
         sentenceCTA={
           <>
             {/* Rating dan Reviews */}
