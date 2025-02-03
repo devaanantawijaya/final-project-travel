@@ -8,6 +8,7 @@ import { IoMdPin } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { getCookie } from "cookies-next";
+import { LiaLuggageCartSolid } from "react-icons/lia";
 
 const DetailActivity = () => {
   const [detailActivities, setDetailActivities] = useState([]);
@@ -59,7 +60,11 @@ const DetailActivity = () => {
         items={detailActivities.imageUrls}
         wordFirst="Liburan"
         hookCTA={detailActivities.title}
-        buttonCTA="Add to Cart"
+        buttonCTA={
+          <div className="flex items-center sm:gap-x-2 gap-x-1">
+            Add To Cart <LiaLuggageCartSolid className="sm:text-5xl text-2xl" />
+          </div>
+        }
         title={
           <div className="flex items-center h-10">
             {detailActivities?.category?.name ? (
@@ -89,23 +94,14 @@ const DetailActivity = () => {
             {(detailActivities?.price || detailActivities?.price_discount) && (
               <div className="flex items-center justify-center gap-2">
                 <div className="line-through opacity-50">
-                  {detailActivities.price &&
-                    detailActivities.price.toLocaleString("id-ID", {
-                      style: "currency",
-                      currency: "IDR",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 0,
-                    })}
-                </div>{" "}
-                <div className="">
-                  {detailActivities.price_discount &&
-                    detailActivities.price_discount.toLocaleString("id-ID", {
-                      style: "currency",
-                      currency: "IDR",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 0,
-                    })}
+                  Rp.{" "}
+                  {(
+                    detailActivities?.price + detailActivities?.price_discount
+                  )?.toLocaleString("id-ID")}
                 </div>
+                <div className="">
+                  Rp. {detailActivities?.price?.toLocaleString("id-ID")}
+                </div>{" "}
               </div>
             )}
 
@@ -120,6 +116,56 @@ const DetailActivity = () => {
         }
         onSubmit={handleAddtoCart}
       />
+
+      <div className="sm:px-32 px-5 sm:grid sm:grid-cols-[7fr_3fr] sm:gap-x-5 mt-5 flex flex-col gap-y-5">
+        <div className="border-2 p-5 rounded-2xl border-orange-400 shadow-xl">
+          <h1 className="font-semibold text-xl text-orange-400">Description</h1>
+          <p>{detailActivities?.description}</p>
+        </div>
+        <div className="border-2 p-5 rounded-2xl border-orange-400 shadow-xl">
+          <h1 className="font-semibold text-xl text-orange-400">Facilities</h1>
+          <p>
+            {detailActivities?.facilities?.includes("<p>") ? (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: detailActivities.facilities,
+                }}
+              />
+            ) : (
+              detailActivities?.facilities
+            )}
+          </p>
+        </div>
+      </div>
+      <div className="my-5 px-5 sm:px-32 sm:grid sm:grid-cols-[7fr_3fr] sm:gap-x-5 flex flex-col gap-y-5">
+        <div className="w-full border-2 p-5 rounded-2xl border-orange-400 shadow-xl">
+          <h1 className="font-semibold text-xl text-orange-400 pb-5">
+            Peta Location
+          </h1>
+          <div className="w-full aspect-[16/9] relative">
+            {detailActivities.location_maps &&
+            detailActivities.location_maps?.includes("<iframe") ? (
+              <div
+                className="absolute inset-0 w-full h-full"
+                dangerouslySetInnerHTML={{
+                  __html: detailActivities.location_maps
+                    .replace(/width=['"]\d+['"]/, "width='100%'")
+                    .replace(/height=['"]\d+['"]/, "height='100%'"),
+                }}
+              />
+            ) : (
+              <iframe
+                src={detailActivities.location_maps}
+                className="w-full h-full"
+              ></iframe>
+            )}
+          </div>
+        </div>
+        <div className="border-2 h-fit p-5 rounded-2xl border-orange-400 shadow-xl">
+          <h1 className="font-semibold text-xl text-orange-400">Address</h1>
+          <p>{detailActivities?.address}</p>
+        </div>
+      </div>
     </div>
   );
 };
