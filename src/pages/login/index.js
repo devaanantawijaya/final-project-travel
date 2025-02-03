@@ -12,12 +12,14 @@ import Swal from "sweetalert2";
 const LoginPage = () => {
   const { setUser } = useUser();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(`${BASE_URL.API}/api/v1/login`, formData, {
         headers: {
@@ -54,6 +56,8 @@ const LoginPage = () => {
             "bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded",
         },
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,7 +107,7 @@ const LoginPage = () => {
             {/* Button */}
             <div className="flex justify-center">
               <Button
-                title="LOGIN"
+                title={loading ? "Loading..." : "LOGIN"}
                 bg="bg-orange-400 hover:bg-orange-600 w-full"
                 text="text-white"
                 p="py-1"

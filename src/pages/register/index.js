@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 const RegisterPage = () => {
   const { setUser } = useUser();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,6 +23,7 @@ const RegisterPage = () => {
   });
 
   const handleRegister = async () => {
+    setLoading(true);
     try {
       if (!formData.name || !formData.role || !formData.phoneNumber) {
         const emptyFields = [];
@@ -36,7 +38,7 @@ const RegisterPage = () => {
                 emptyFields[emptyFields.length - 1]
               } belum diisi.`;
 
-        return Swal.fire({
+        await Swal.fire({
           title: "Login Failed",
           html: message,
           icon: "error",
@@ -46,6 +48,8 @@ const RegisterPage = () => {
               "bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded",
           },
         });
+
+        return;
       }
       const resRegister = await axios.post(
         `${BASE_URL.API}/api/v1/register`,
@@ -105,6 +109,8 @@ const RegisterPage = () => {
             "bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded",
         },
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -206,7 +212,7 @@ const RegisterPage = () => {
             {/* Button */}
             <div className="flex justify-center">
               <Button
-                title="REGISTER"
+                title={loading ? "Loading..." : "REGISTER"}
                 bg="bg-orange-400 hover:bg-orange-600 w-full"
                 text="text-white"
                 p="py-1"
