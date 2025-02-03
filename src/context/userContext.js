@@ -6,7 +6,6 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  // const [token, setToken] = useState(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
