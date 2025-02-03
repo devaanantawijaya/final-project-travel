@@ -29,7 +29,6 @@ const UserPage = () => {
           {/* Side Bar */}
           <div className="flex flex-col gap-y-5 bg-slate-200 pt-28 pl-20 min-h-screen">
             {[
-              "Dashboard",
               "My Profile",
               "Data Banner",
               "Data Promo",
@@ -52,7 +51,6 @@ const UserPage = () => {
           </div>
           {/* Main Content */}
           <div className="bg-slate-300 pt-28 min-h-screen px-20">
-            {activePage === "Dashboard" && <div>Ini Dashboard</div>}
             {activePage === "My Profile" && <div>Ini My Profile</div>}
             {activePage === "Data Banner" && <div>Ini Banner</div>}
             {activePage === "Data Promo" && <div>Ini Promo</div>}
@@ -64,42 +62,8 @@ const UserPage = () => {
         </div>
       )}
 
-      {/* User */}
-      {user && user.role === "user" && (
-        <div className="grid grid-cols-[2fr_8fr]">
-          {/* Side Bar */}
-          <div className="flex flex-col gap-y-5 bg-slate-200 pt-28 pl-20 min-h-screen">
-            {["Dashboard", "My Profile"].map((list) => (
-              <div
-                key={list}
-                className={`cursor-pointer hover:text-orange-400 hover:font-semibold ${
-                  activePage === list ? "text-orange-400 font-bold" : ""
-                }`}
-                onClick={() => setActivePage(list)}
-              >
-                {list}
-              </div>
-            ))}
-            <div onClick={handleLogout}>Logout</div>
-          </div>
-          {/* Main Content */}
-          <div className="bg-slate-300 pt-28 min-h-screen px-20">
-            {activePage === "Dashboard" && (
-              <div>
-                {activePage === "Dashboard" && (
-                  <div>
-                    <h1>Ini Dashboard</h1>
-                    <Link href="/user/transaksi">
-                      <div>All Transaksi</div>
-                    </Link>
-                  </div>
-                )}
-              </div>
-            )}
-            {activePage === "My Profile" && <div>Ini My Profile</div>}
-          </div>
-        </div>
-      )}
+      {/* Edit Profile User */}
+      {user && user.role === "user" && <div className="pt-28">Edit Profile User</div>}
     </Authorization>
   );
 };
