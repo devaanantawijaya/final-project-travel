@@ -131,7 +131,7 @@ const CartPage = () => {
     .filter((item) => selectedCart.includes(item.id))
     .reduce((sum, item) => sum + item.activity.price * item.quantity, 0);
 
-  const serviceFee = 2000;
+  const serviceFee = 0;
   const totalPayment = subtotal + serviceFee;
 
   useEffect(() => {
@@ -265,15 +265,14 @@ const CartPage = () => {
               </div>
               <div className="flex justify-between">
                 <p>Service Fee</p>
-                <p>Rp. {serviceFee.toLocaleString("id-ID")}</p>
+                <p>
+                  Rp. {serviceFee.toLocaleString("id-ID")} {`(Free)`}
+                </p>
               </div>
               <div className="flex justify-between">
                 <p>Total Pembayaran</p>
                 <p>
-                  Rp.{" "}
-                  {totalPayment === 2000
-                    ? 0
-                    : totalPayment.toLocaleString("id-ID")}
+                  Rp. {totalPayment && totalPayment.toLocaleString("id-ID")}
                 </p>
               </div>
               <h1 className="font-bold text-lg">Pilih Metode Pembayaran</h1>
