@@ -6,7 +6,7 @@ import Card from "@/components/Card";
 import { useRouter } from "next/router";
 
 const SlideResponsive = (props) => {
-  const { title, items, extraTitle } = props;
+  const { title, items, extraTitle, id } = props;
 
   const sliderRef = useRef(null);
 
@@ -53,7 +53,9 @@ const SlideResponsive = (props) => {
     <div className="xl:pt-10 pt-5">
       <div className="flex justify-between items-center xl:px-20 px-4">
         <div className="flex items-end pb-5 gap-x-3">
-          <h1 className="font-bold text-2xl">{title}</h1>
+          <h1 id={id} className="font-bold text-2xl">
+            {title}
+          </h1>
           {extraTitle && <p>{extraTitle}</p>}
         </div>
         <div className="flex">
