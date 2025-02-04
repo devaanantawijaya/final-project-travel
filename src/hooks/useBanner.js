@@ -21,5 +21,5 @@ export const useBanners = () => {
       setLoadingBanners(false);
     }
   };
-  return { banners, loadingBanners, getBanners };
+  return { banners, setBanners, loadingBanners, getBanners };
 };
