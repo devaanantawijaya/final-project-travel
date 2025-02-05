@@ -35,11 +35,11 @@ const DetailCategories = () => {
   return (
     <div>
       <Navbar />
-      <div className="pt-24 px-52">
+      <div className="pt-24 lg:px-52 px-5">
         {/* Banner */}
         <div className="relative">
           {/* Judul */}
-          <div className="absolute w-full left-10 bottom-10">
+          <div className="absolute lg:w-full left-10 bottom-10 w-40">
             <p className="bg-white w-fit px-3 py-1 text-orange-400 font-bold rounded-xl">
               Category
             </p>
