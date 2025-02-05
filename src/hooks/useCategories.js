@@ -22,7 +22,7 @@ const useCategories = () => {
     }
   };
 
-  return { categories, loadingCategories, getCategories };
+  return { categories, setCategories, loadingCategories, getCategories };
 };
 
 export default useCategories;
