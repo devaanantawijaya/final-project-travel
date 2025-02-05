@@ -22,5 +22,5 @@ export const usePromos = () => {
     }
   };
 
-  return { promos, loadingPromos, getPromos };
+  return { promos, setPromos, loadingPromos, getPromos };
 };
