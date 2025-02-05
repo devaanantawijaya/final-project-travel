@@ -21,7 +21,7 @@ const useActivities = () => {
       setLoadingActivities(false);
     }
   };
-  return { activities, loadingActivities, getActivities };
+  return { activities, setActivities, loadingActivities, getActivities };
 };
 
 export default useActivities;
