@@ -10,6 +10,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { getCookie } from "cookies-next";
 import { LiaLuggageCartSolid } from "react-icons/lia";
 import Swal from "sweetalert2";
+import Footer from "@/components/Footer";
 
 const DetailActivity = () => {
   const [detailActivities, setDetailActivities] = useState([]);
@@ -216,6 +217,7 @@ const DetailActivity = () => {
           <p>{detailActivities?.address}</p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

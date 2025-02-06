@@ -9,6 +9,7 @@ import useCategories from "@/hooks/useCategories";
 import Card from "@/components/Card";
 import SlideResponsive from "@/components/Slides/Responsive";
 import useActivities from "@/hooks/useActivities";
+import Footer from "@/components/Footer";
 
 const ActivityPage = () => {
   const { banners, setLoadingBanners, getBanners } = useBanners();
@@ -67,6 +68,7 @@ const ActivityPage = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

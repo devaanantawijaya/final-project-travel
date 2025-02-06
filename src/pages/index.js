@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { useBanners } from "@/hooks/useBanner";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { MdTravelExplore } from "react-icons/md";
+import Footer from "@/components/Footer";
 
 const HomePage = () => {
   const { banners, setLoadingBanners, getBanners } = useBanners();
@@ -98,6 +99,8 @@ const HomePage = () => {
           ))}
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
