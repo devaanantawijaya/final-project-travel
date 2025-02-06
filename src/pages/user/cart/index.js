@@ -4,15 +4,21 @@ import Navbar from "@/components/Navbar";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
 import axios from "axios";
 import { getCookie } from "cookies-next";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);
   const [paymentMethods, settPaymentMethods] = useState([]);
   const [selectedCart, setSelectedCart] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("");
   const token = getCookie("JWT_TOKEN");
+  const MySwal = withReactContent(Swal);
+  const router = useRouter();
 
   const getCart = async () => {
     try {
@@ -56,14 +62,21 @@ const CartPage = () => {
   };
 
   const handleDeleteCart = async (cartId) => {
-    // Tampilkan pop-up konfirmasi
-    const isConfirmed = window.confirm(
-      "Apakah kamu yakin ingin menghapus item ini?"
-    );
+    const result = await MySwal.fire({
+      title: "Apakah kamu yakin?",
+      text: "Item ini akan dihapus dari keranjang!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#f97316",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    });
 
-    if (!isConfirmed) {
-      return; // Batalkan penghapusan jika pengguna memilih "No"
+    if (!result.isConfirmed) {
+      return;
     }
+
     try {
       const res = await axios.delete(
         `${BASE_URL.API}/api/v1/delete-cart/${cartId}`,
@@ -76,8 +89,23 @@ const CartPage = () => {
       );
 
       setCart((prevCart) => prevCart.filter((item) => item.id !== cartId));
+
+      MySwal.fire({
+        title: "Dihapus!",
+        text: "Item berhasil dihapus dari keranjang.",
+        icon: "success",
+        confirmButtonColor: "#f97316",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (error) {
       console.log(error);
+      MySwal.fire({
+        title: "Gagal!",
+        text: "Terjadi kesalahan saat menghapus item.",
+        icon: "error",
+        confirmButtonColor: "#f97316",
+      });
     }
   };
 
@@ -106,12 +134,36 @@ const CartPage = () => {
     setSelectedPayment((prev) => (prev === payId ? "" : payId));
   };
 
+  const handleSelectAll = () => {
+    setSelectAll(!selectAll);
+    cart.forEach((item) => handleSelectedCart(item.id, !selectAll));
+  };
+
   const createTransaction = async () => {
+    if (selectedCart.length === 0) {
+      return MySwal.fire({
+        title: "Peringatan!",
+        text: "Silakan pilih item di keranjang sebelum melanjutkan.",
+        icon: "warning",
+        confirmButtonColor: "#f97316",
+      });
+    }
+
+    if (!selectedPayment) {
+      return MySwal.fire({
+        title: "Peringatan!",
+        text: "Silakan pilih metode pembayaran sebelum melanjutkan.",
+        icon: "warning",
+        confirmButtonColor: "#f97316",
+      });
+    }
+
     try {
       const payload = {
         cartIds: selectedCart,
         paymentMethodId: selectedPayment,
       };
+
       const res = await axios.post(
         `${BASE_URL.API}/api/v1/create-transaction`,
         payload,
@@ -122,8 +174,27 @@ const CartPage = () => {
           },
         }
       );
+
+      MySwal.fire({
+        title: "Transaksi Berhasil!",
+        text: "Pesanan kamu sedang diproses.",
+        icon: "success",
+        confirmButtonColor: "#f97316",
+        timer: 1150,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        router.push("/user/transaksi");
+      }, 1500);
     } catch (error) {
       console.log(error);
+      MySwal.fire({
+        title: "Gagal!",
+        text: "Terjadi kesalahan saat memproses transaksi.",
+        icon: "error",
+        confirmButtonColor: "#f97316",
+      });
     }
   };
 
@@ -145,157 +216,308 @@ const CartPage = () => {
   return (
     <Authorization>
       <Navbar />
-      <div className="pt-28 px-20">
+      <div className="pt-24 xl:px-20 px-5">
         <div className="flex justify-between">
-          <h1>Your Cart</h1>
-          <p>0 item</p>
+          <h1 className="font-bold text-3xl text-orange-500">Your Cart</h1>
+          <p>{cart.length} item</p>
         </div>
         <div className="flex justify-between">
-          <h1>Select All Items</h1>
-          <p>{`0 item(s) selected`}</p>
+          <div className="flex items-center gap-x-2">
+            <input
+              type="checkbox"
+              checked={selectAll}
+              onChange={handleSelectAll}
+            />
+            <h1>Select All Items</h1>
+          </div>
+          <p>{`${selectedCart.length} item(s) selected`}</p>
         </div>
-        <div className="lg:flex gap-10">
+        <div className="xl:flex gap-10 py-5">
           {/* List Cart */}
-          <div className="bg-slate-300 w-[70%] h-fit">
-            {/* Header */}
-            <div className="grid grid-cols-[1fr_3fr_2fr_2fr_2fr]">
-              <div>
-                <h1 className="py-5 text-center">Select</h1>
-              </div>
-              <div>
-                <h1 className="py-5 text-left">Activity</h1>
-              </div>
-              <div>
-                <h1 className="py-5 text-center">Price</h1>
-              </div>
-              <div>
-                <h1 className="py-5 text-center">Quantity</h1>
-              </div>
-              <div>
-                <h1 className="py-5 text-center">Total</h1>
-              </div>
+          <div className="bg-white w-full xl:w-2/3 shadow-lg rounded-lg p-5 border-2 mb-5 xl:mb-0 h-fit">
+            <h1 className="text-xl font-bold text-orange-500 mb-4">
+              List Cart
+            </h1>
+            {/* Header hanya muncul di desktop */}
+            <div className="hidden lg:grid grid-cols-[1fr_3fr_2fr_2fr_2fr] bg-gray-100 p-3 rounded-md font-semibold text-gray-700">
+              <div className="text-center">Select</div>
+              <div>Activity</div>
+              <div className="text-center">Price</div>
+              <div className="text-center">Quantity</div>
+              <div className="text-center">Total</div>
             </div>
-            {/* Content */}
-            {cart.map((item) => (
-              <div
-                key={item.id}
-                className="grid grid-cols-[1fr_3fr_2fr_2fr_2fr] border-t border-gray-400"
-              >
-                {/* 1. Select */}
-                <div className="flex items-center justify-center">
-                  <input
-                    type="checkbox"
-                    onChange={() => handleSelectedCart(item.id)}
-                  />
-                </div>
 
-                {/* 2. Activity */}
-                <div className="flex items-center gap-3 py-3">
-                  <div className="overflow-hidden w-28">
-                    <img
-                      src={item.activity.imageUrls[0]}
-                      alt="images"
-                      className="aspect-square object-cover"
+            {/* content desktop */}
+            <div className="lg:block hidden">
+              {cart.length > 0 ? (
+                cart.map((item) => (
+                  <div
+                    key={item.id}
+                    className="grid grid-cols-[1fr_3fr_2fr_2fr_2fr] items-center border-t border-gray-300 py-3"
+                  >
+                    <div className="flex justify-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedCart.includes(item.id)}
+                        onChange={() => handleSelectedCart(item.id)}
+                      />
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <div className="w-24 h-24 overflow-hidden rounded-lg">
+                        <img
+                          src={
+                            item.activity.imageUrls.length > 0 &&
+                            item.activity.imageUrls[0] !== ""
+                              ? item.activity.imageUrls[0]
+                              : "/images/no-foto.jpg"
+                          }
+                          alt={item.activity.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = "/images/no-foto.jpg";
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <h1 className="font-semibold">
+                          {item.activity.title.length > 15
+                            ? item.activity.title.slice(0, 15) + "..."
+                            : item.activity.title}
+                        </h1>
+                        <p className="text-sm text-gray-500">
+                          {item.activity.city},
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {item.activity.province}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="text-center">
+                      <p className="font-medium">
+                        Rp. {item.activity.price.toLocaleString("id-ID")}
+                      </p>
+                      <p className="line-through text-gray-400 text-sm">
+                        Rp.{" "}
+                        {(
+                          item.activity.price + item.activity.price_discount
+                        ).toLocaleString("id-ID")}
+                      </p>
+                    </div>
+
+                    <div className="flex justify-center gap-2 items-center">
+                      <button
+                        className="px-2 py-1 bg-gray-200 rounded"
+                        onClick={() =>
+                          item.quantity > 1 &&
+                          handleUpdateCart(item.id, item.quantity - 1)
+                        }
+                      >
+                        -
+                      </button>
+                      <p className="font-medium">{item.quantity}</p>
+                      <button
+                        className="px-2 py-1 bg-gray-200 rounded"
+                        onClick={() =>
+                          handleUpdateCart(item.id, item.quantity + 1)
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <div className="flex justify-between px-5">
+                      <p className="font-medium">
+                        Rp.{" "}
+                        {(item.activity.price * item.quantity).toLocaleString(
+                          "id-ID"
+                        )}
+                      </p>
+                      <button
+                        onClick={() => handleDeleteCart(item.id)}
+                        className="text-gray-500 hover:text-red-600"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-5 ">
+                  <p className="text-gray-500">
+                    Keranjang belanja Anda kosong. Tambahkan aktivitas untuk
+                    melanjutkan.
+                  </p>
+                  <div className="py-3">
+                    <Button
+                      title="Lanjut Belanja"
+                      bg="bg-orange-400 hover:bg-orange-600"
+                      text="text-xl text-white"
+                      p="px-8 py-1"
+                      onClick={() => router.push("/activity")}
                     />
                   </div>
-                  <div>
-                    <h1>{item.activity.title}</h1>
-                    <p>
-                      {item.activity.city}, {item.activity.province}
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Version (List Style) */}
+            <div className="block lg:hidden">
+              {cart.length > 0 ? (
+                cart.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex flex-col border-t border-gray-300 py-3 space-y-3"
+                  >
+                    <div className="flex justify-between items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedCart.includes(item.id)}
+                        onChange={() => handleSelectedCart(item.id)}
+                      />
+                      <button
+                        onClick={() => handleDeleteCart(item.id)}
+                        className="text-gray-500 hover:text-red-600"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <div className="w-24 h-24 overflow-hidden rounded-lg">
+                        <img
+                          src={
+                            item.activity.imageUrls.length > 0 &&
+                            item.activity.imageUrls[0] !== ""
+                              ? item.activity.imageUrls[0]
+                              : "/images/no-foto.jpg"
+                          }
+                          alt={item.activity.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = "/images/no-foto.jpg";
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <h1 className="font-semibold">
+                          {item.activity.title.length > 20
+                            ? item.activity.title.slice(0, 20) + "..."
+                            : item.activity.title}
+                        </h1>
+                        <p className="text-sm text-gray-500">
+                          {item.activity.city}, {item.activity.province}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-x-2">
+                        <p className="font-medium line-through text-gray-500">
+                          Rp.{" "}
+                          {(
+                            item.activity.price + item.activity.price_discount
+                          ).toLocaleString("id-ID")}
+                        </p>
+                        <p className="font-medium">
+                          Rp. {item.activity.price.toLocaleString("id-ID")}
+                        </p>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <button
+                          className="px-2 py-1 bg-gray-200 rounded"
+                          onClick={() =>
+                            item.quantity > 1 &&
+                            handleUpdateCart(item.id, item.quantity - 1)
+                          }
+                        >
+                          -
+                        </button>
+                        <p className="font-medium">{item.quantity}</p>
+                        <button
+                          className="px-2 py-1 bg-gray-200 rounded"
+                          onClick={() =>
+                            handleUpdateCart(item.id, item.quantity + 1)
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+
+                    <p className="text-right font-medium">
+                      Total: Rp.{" "}
+                      {(item.activity.price * item.quantity).toLocaleString(
+                        "id-ID"
+                      )}
                     </p>
-                    <p>Added on</p>
-                    {/* <p className="text-xs">{item.addedDate}</p> */}
-                    {/* <p className="text-xs">{item.addedTime}</p> */}
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-5 ">
+                  <p className="text-gray-500">
+                    Keranjang belanja Anda kosong. Tambahkan aktivitas untuk
+                    melanjutkan.
+                  </p>
+                  <div className="py-3">
+                    <Button
+                      title="Lanjut Belanja"
+                      bg="bg-orange-400 hover:bg-orange-600"
+                      text="text-xl text-white"
+                      p="px-8 py-1"
+                      onClick={() => router.push("/activity")}
+                    />
                   </div>
                 </div>
-
-                {/* 3. Price */}
-                <div className="flex flex-col items-center justify-center">
-                  <p>{`Rp. ${item.activity.price.toLocaleString("id-ID")}`}</p>
-                  <p className="line-through">{`Rp. ${item.activity.price_discount.toLocaleString(
-                    "id-ID"
-                  )}`}</p>
-                </div>
-
-                {/* 4. Quantity */}
-                <div className="flex items-center justify-center">
-                  <div className="flex items-center gap-2">
-                    <button
-                      className="px-2 py-1 bg-gray-200 rounded"
-                      onClick={() => {
-                        if (item.quantity > 1) {
-                          handleUpdateCart(item.id, item.quantity - 1);
-                        }
-                      }}
-                    >
-                      -
-                    </button>
-                    <p>{item.quantity}</p>
-                    <button
-                      className="px-2 py-1 bg-gray-200 rounded"
-                      onClick={() => {
-                        handleUpdateCart(item.id, item.quantity + 1);
-                      }}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-
-                {/* 5. Total */}
-                <div className="flex items-center justify-between px-5">
-                  <p>{`Rp. ${(
-                    item.activity.price * item.quantity
-                  ).toLocaleString("id-ID")}`}</p>
-                  <button onClick={() => handleDeleteCart(item.id)}>
-                    <FaTrash className="hover:text-red-600" />
-                  </button>
-                </div>
-              </div>
-            ))}
+              )}
+            </div>
           </div>
+
           {/* Summary */}
-          <div className="bg-slate-400 w-[30%] h-fit">
-            {/* Total Harga dan pembayaran*/}
-            <div className="px-5 py-5">
-              <h1 className="font-bold text-xl">Order Summary</h1>
+          <div className="bg-white w-full xl:w-1/3 shadow-lg rounded-lg p-5 border-2 h-fit">
+            <h1 className="font-bold text-xl text-orange-500">Order Summary</h1>
+            <div className="mt-3 space-y-2">
               <div className="flex justify-between">
                 <p>Subtotal</p>
                 <p>Rp. {subtotal.toLocaleString("id-ID")}</p>
               </div>
               <div className="flex justify-between">
                 <p>Service Fee</p>
-                <p>
-                  Rp. {serviceFee.toLocaleString("id-ID")} {`(Free)`}
-                </p>
+                <p>Rp. {serviceFee.toLocaleString("id-ID")} (Free)</p>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between font-semibold text-lg">
                 <p>Total Pembayaran</p>
-                <p>
-                  Rp. {totalPayment && totalPayment.toLocaleString("id-ID")}
-                </p>
+                <p>Rp. {totalPayment?.toLocaleString("id-ID")}</p>
               </div>
-              <h1 className="font-bold text-lg">Pilih Metode Pembayaran</h1>
+            </div>
+
+            <h1 className="font-bold text-lg mt-5">Pilih Metode Pembayaran</h1>
+            <div className="mt-2 space-y-2">
               {paymentMethods.map((item) => (
-                <div key={item.id} className="flex justify-between">
+                <div
+                  key={item.id}
+                  className="flex items-center gap-3 p-2 border rounded-md cursor-pointer hover:bg-gray-100"
+                >
                   <input
-                    type="checkbox"
+                    type="radio"
                     checked={selectedPayment === item.id}
                     onChange={() => handleSelectedPayment(item.id)}
                   />
-                  <img src={item.imageUrl} alt={item.name} />
+                  <img src={item.imageUrl} alt={item.name} className="h-8" />
                 </div>
               ))}
-              <div className="flex justify-center">
-                <Button
-                  title="Lanjutkan Pembayaran"
-                  bg="bg-orange-400 w-full hover:bg-orange-600"
-                  text="text-white"
-                  p="py-1"
-                  onClick={createTransaction}
-                />
-              </div>
             </div>
+
+            <Button
+              title="Lanjutkan Pembayaran"
+              bg="bg-orange-500 w-full hover:bg-orange-600"
+              text="text-white"
+              p="py-2 mt-4"
+              onClick={createTransaction}
+            />
           </div>
         </div>
       </div>
