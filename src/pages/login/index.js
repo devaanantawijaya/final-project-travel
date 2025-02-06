@@ -98,7 +98,7 @@ const LoginPage = () => {
             {/* Password */}
             <div className="mb-5">
               <input
-                type="text"
+                type="password"
                 placeholder="Enter Password"
                 className="border-2 w-full text-xl p-2 rounded-lg border-orange-400"
                 onChange={(e) =>

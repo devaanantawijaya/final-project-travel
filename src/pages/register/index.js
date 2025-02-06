@@ -163,7 +163,7 @@ const RegisterPage = () => {
             {/* Password 1 */}
             <div className="mb-4">
               <input
-                type="text"
+                type="password"
                 placeholder="Enter Password"
                 className="border-2 w-full text-xl px-5 py-1 rounded-lg border-orange-400"
                 onChange={(e) =>
@@ -175,7 +175,7 @@ const RegisterPage = () => {
             {/* Password 2 */}
             <div className="mb-4">
               <input
-                type="text"
+                type="password"
                 placeholder="Enter Password Again"
                 className="border-2 w-full text-xl px-5 py-1 rounded-lg border-orange-400"
                 onChange={(e) =>
