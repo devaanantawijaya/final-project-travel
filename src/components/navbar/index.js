@@ -359,8 +359,12 @@ const Navbar = () => {
         className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ${
           isOpenMyProfile ? "block" : "hidden"
         }`}
+        onClick={() => setIsOpenMyProfile(false)}
       >
-        <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+        <div
+          className="bg-white p-6 rounded-lg shadow-lg w-80"
+          onClick={(e) => e.stopPropagation()}
+        >
           <h2 className="text-lg font-bold mb-4 text-center">My Profile</h2>
 
           {/* Foto Profile */}
@@ -371,7 +375,6 @@ const Navbar = () => {
               className="w-24 h-24 rounded-full object-cover"
             />
           </div>
-
           {/* Input untuk Upload Foto */}
           <div className="mb-4">
             <input
@@ -387,7 +390,6 @@ const Navbar = () => {
               }}
             />
           </div>
-
           {/* Nama */}
           <div>
             <h3 className="pb-1">Fullname:</h3>
@@ -399,7 +401,6 @@ const Navbar = () => {
               placeholder={user?.name}
             />
           </div>
-
           {/* Email */}
           <div>
             <h3 className="pb-1">Email:</h3>
@@ -411,7 +412,6 @@ const Navbar = () => {
               placeholder={user?.email}
             />
           </div>
-
           {/* role */}
           <div>
             <h3 className="pb-1">Role:</h3>
@@ -422,7 +422,6 @@ const Navbar = () => {
               readOnly
             />
           </div>
-
           <div>
             <h3 className="pb-1">Phone Number:</h3>
             <input
@@ -433,7 +432,6 @@ const Navbar = () => {
               placeholder={user?.phoneNumber}
             />
           </div>
-
           <div className="flex justify-between">
             <button
               className="bg-gray-100 text-orange-400 hover:text-white px-4 py-2 rounded hover:bg-orange-400"
