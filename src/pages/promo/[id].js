@@ -30,7 +30,7 @@ const DetailPromo = () => {
 
   useEffect(() => {
     if (router.query.id) getDetailPromo();
-  }, [router.query.id]);
+  }, [router.query.id, getDetailPromo]);
 
   return (
     <div>

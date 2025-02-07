@@ -207,7 +207,7 @@ const CartPage = () => {
 
   useEffect(() => {
     getCart();
-  }, []);
+  }, [getCart]);
 
   useEffect(() => {
     getPaymentMethods();

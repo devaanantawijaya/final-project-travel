@@ -49,7 +49,7 @@ const DetailTransaksi = () => {
     ) {
       setIsPayUrl("/images/bukti-pembayaran.png");
     }
-  });
+  }, [detailTransaksi]); // ✅ Tambahkan dependency
 
   const getDetailTransaksi = async () => {
     try {
@@ -253,7 +253,7 @@ const DetailTransaksi = () => {
 
   useEffect(() => {
     if (router.query.id) getDetailTransaksi();
-  }, [router.query.id]);
+  }, [router.query.id, getDetailTransaksi]);
 
   return (
     <Authorization>

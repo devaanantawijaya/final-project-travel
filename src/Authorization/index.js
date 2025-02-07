@@ -8,7 +8,7 @@ const Authorization = ({ children }) => {
   useEffect(() => {
     const token = getCookie("JWT_TOKEN");
     if (!token) router.push("/login");
-  }, []);
+  }, [router]);
 
   return children;
 };

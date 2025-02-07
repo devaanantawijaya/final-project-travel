@@ -90,7 +90,8 @@ const DetailActivity = () => {
           draggable: true,
           timer: 1100,
           customClass: {
-            confirmButton: "bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded",
+            confirmButton:
+              "bg-orange-400 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded",
           },
         });
       }
@@ -101,7 +102,7 @@ const DetailActivity = () => {
 
   useEffect(() => {
     if (router.query.id) getDetailActivities();
-  }, [router.query.id]);
+  }, [router.query.id, getDetailActivities]); 
 
   return (
     <div>

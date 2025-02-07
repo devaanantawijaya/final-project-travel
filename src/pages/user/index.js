@@ -76,7 +76,14 @@ const UserPage = () => {
     getPromos();
     getCategories();
     getActivities();
-  }, []);
+  }, [
+    getAllTransaction,
+    getAllUser,
+    getBanners,
+    getPromos,
+    getCategories,
+    getActivities,
+  ]); 
 
   useEffect(() => {
     if (!selectedId || jdl !== "banner") return;

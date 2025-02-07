@@ -30,7 +30,7 @@ const TransaksiPage = () => {
 
   useEffect(() => {
     getMyTransactions();
-  }, []);
+  }, [getMyTransactions]);
 
   const filteredTransactions = transactions.filter(
     (t) => t.status === filterStatus
