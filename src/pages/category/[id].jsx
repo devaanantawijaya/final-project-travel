@@ -31,7 +31,7 @@ const DetailCategories = () => {
 
   useEffect(() => {
     if (router.query.id) getDetailCategories();
-  }, [router.query.id, getDetailCategories]);
+  }, [router.query.id]);
 
   return (
     <div>

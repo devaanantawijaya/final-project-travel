@@ -12,7 +12,7 @@ const TransaksiPage = () => {
   const [transactions, setTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterStatus, setFilterStatus] = useState("pending");
-  const itemsPerPage = 7;
+  const itemsPerPage = 5;
 
   const getMyTransactions = async () => {
     try {

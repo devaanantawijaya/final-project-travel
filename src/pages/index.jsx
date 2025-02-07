@@ -22,15 +22,15 @@ const HomePage = () => {
 
   useEffect(() => {
     getBanners();
-  }, [getBanners]);
+  }, []);
 
   useEffect(() => {
     getPromos();
-  }, [getPromos]);
+  }, []);
 
   useEffect(() => {
     getActivities();
-  }, [getPromos]);
+  }, []);
 
   return (
     <div className="w-screen">

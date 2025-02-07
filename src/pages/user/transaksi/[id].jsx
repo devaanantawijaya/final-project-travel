@@ -252,7 +252,7 @@ const DetailTransaksi = () => {
 
   useEffect(() => {
     if (router.query.id) getDetailTransaksi();
-  }, [router.query.id, getDetailTransaksi]);
+  }, [router.query.id]);
 
   return (
     <Authorization>

@@ -29,7 +29,7 @@ const DetailBanner = () => {
 
   useEffect(() => {
     if (router.query.id) getDetailBanner();
-  }, [router.query.id, getDetailBanner]);
+  }, [router.query.id]);
 
   return (
     <div>

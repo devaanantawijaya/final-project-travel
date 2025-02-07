@@ -102,7 +102,7 @@ const DetailActivity = () => {
 
   useEffect(() => {
     if (router.query.id) getDetailActivities();
-  }, [router.query.id, getDetailActivities]);
+  }, [router.query.id]);
 
   return (
     <div>
