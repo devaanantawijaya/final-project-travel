@@ -33,7 +33,7 @@ const HomePage = () => {
   }, [getPromos]);
 
   return (
-    <div>
+    <div className="w-screen">
       <Navbar />
 
       <SlideBanners
