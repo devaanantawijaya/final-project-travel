@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { deleteCookie, getCookie } from "cookies-next";
 import { FaLuggageCart } from "react-icons/fa";
 import { useUser } from "@/context/userContext";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
@@ -18,13 +18,36 @@ const Navbar = () => {
   const [isOpenHamburger, setIsOpenHamburger] = useState(false);
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const [isOpenMyProfile, setIsOpenMyProfile] = useState(false);
-
   const [fotoProfile, setFotoProfile] = useState(null);
-  const [imageProfile, setImageProfile] = useState(user?.profilePictureUrl);
+  const [loggedUser, setLoggedUser] = useState([]);
 
-  const [name, setName] = useState(user?.name);
-  const [email, setEmail] = useState(user?.email);
-  const [phone, setPhone] = useState(user?.phoneNumber);
+  const [imageProfile, setImageProfile] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const [fileInputKey, setFileInputKey] = useState(0);
+
+  const getLoggedUser = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL.API}/api/v1/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          apiKey: API_KEY,
+        },
+      });
+      setLoggedUser(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    setImageProfile(loggedUser?.profilePictureUrl);
+    setName(loggedUser?.name);
+    setEmail(loggedUser?.email);
+    setPhone(loggedUser?.phoneNumber);
+  }, [loggedUser]);
 
   useEffect(() => {
     setIsClient(true);
@@ -330,14 +353,26 @@ const Navbar = () => {
               <li className="hover:text-orange-400">Contact Us</li>
             </Link>
             <Link href="/login">
-              <li className="hover:text-orange-400">Login</li>
+              <li
+                className={`hover:text-orange-400 ${
+                  token ? "hidden" : "block"
+                }`}
+              >
+                Login
+              </li>
             </Link>
           </ul>
         </div>
         {/* List Profile*/}
         <div className={`${isOpenProfile ? "block" : "hidden"} xl:px-16`}>
           <ul className="flex flex-col gap-y-2 font-semibold text-black px-3 pb-3 text-end">
-            <button className="text-end" onClick={handleMyProfile}>
+            <button
+              className="text-end"
+              onClick={() => {
+                handleMyProfile();
+                getLoggedUser();
+              }}
+            >
               <li className="hover:text-orange-400">My Profile</li>
             </button>
             {user && user.role === "admin" ? (
@@ -372,7 +407,7 @@ const Navbar = () => {
           {/* Foto Profile */}
           <div className="flex justify-center mb-4">
             <img
-              src={imageProfile || user?.profilePictureUrl}
+              src={imageProfile}
               alt="profile user"
               className="w-24 h-24 rounded-full object-cover"
             />
@@ -380,6 +415,7 @@ const Navbar = () => {
           {/* Input untuk Upload Foto */}
           <div className="mb-4">
             <input
+              key={fileInputKey}
               type="file"
               accept="image/*"
               className="mt-2 text-sm"
@@ -400,7 +436,7 @@ const Navbar = () => {
               className="w-full p-2 border rounded mb-2"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder={user?.name}
+              placeholder={name}
             />
           </div>
           {/* Email */}
@@ -411,7 +447,7 @@ const Navbar = () => {
               className="w-full p-2 border rounded mb-2"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder={user?.email}
+              placeholder={email}
             />
           </div>
           {/* role */}
@@ -431,19 +467,26 @@ const Navbar = () => {
               className="w-full p-2 border rounded mb-4"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder={user?.phoneNumber}
+              placeholder={phone}
             />
           </div>
           <div className="flex justify-between">
             <button
               className="bg-gray-100 text-orange-400 hover:text-white px-4 py-2 rounded hover:bg-orange-400"
-              onClick={handleMyProfile}
+              onClick={() => {
+                handleMyProfile();
+                setFileInputKey((prevKey) => prevKey + 1);
+                getLoggedUser();
+              }}
             >
               Cancel
             </button>
             <button
               className="bg-orange-400 text-white px-4 py-2 rounded hover:bg-orange-600"
-              onClick={handleUpdateProfile}
+              onClick={() => {
+                handleUpdateProfile();
+                setFileInputKey((prevKey) => prevKey + 1);
+              }}
             >
               Save
             </button>
