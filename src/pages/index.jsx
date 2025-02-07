@@ -33,7 +33,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="w-screen">
+    <div>
       <Navbar />
 
       <SlideBanners
@@ -54,50 +54,53 @@ const HomePage = () => {
         onSubmit={() => router.push("/activity")}
       />
 
-      <SlideResponsive id="promo" title="Promo" items={promos} />
+      <div className="sm:px-0">
+        <SlideResponsive id="promo" title="Promo" items={promos} />
 
-      <SlideResponsive
-        title="Activity"
-        items={activities}
-        extraTitle={
-          <Button
-            title="All View"
-            text="text-orange-400 hover:text-orange-600 font-semibold"
-            onClick={() => router.push(`/activity`)}
-          />
-        }
-      />
-      <section className="xl:pt-10 pt-5">
-        <h1 className="font-bold text-2xl xl:px-20 px-4">
-          Kenapa harus di Travely?
-        </h1>
-        <div className="sm:flex xl:px-16 pt-5">
-          {apiBenefit.map((item) => (
-            <Card
-              key={item.id}
-              item={item}
-              totalItems={apiBenefit.length}
-              title={item.type === "promo" ? "Cek Promo" : "Gas Travel"}
-              onClick={
-                item.type === "promo"
-                  ? () => {
-                      document
-                        .getElementById("promo")
-                        ?.scrollIntoView({ behavior: "smooth" });
-                    }
-                  : () => {
-                      router.push("/activity#travel");
-                      setTimeout(() => {
-                        document
-                          .getElementById("travel")
-                          ?.scrollIntoView({ behavior: "smooth" });
-                      }, 500);
-                    }
-              }
+        <SlideResponsive
+          title="Activity"
+          items={activities}
+          extraTitle={
+            <Button
+              title="All View"
+              text="text-orange-400 hover:text-orange-600 font-semibold"
+              onClick={() => router.push(`/activity`)}
             />
-          ))}
-        </div>
-      </section>
+          }
+        />
+
+        <section className="xl:pt-10 pt-5">
+          <h1 className="font-bold text-2xl xl:px-20 px-4">
+            Kenapa harus di Travely?
+          </h1>
+          <div className="flex flex-col lg:flex-row xl:px-16 pt-5 gap-y-5 lg:gap-y-0">
+            {apiBenefit.map((item) => (
+              <Card
+                key={item.id}
+                item={item}
+                totalItems={apiBenefit.length}
+                title={item.type === "promo" ? "Cek Promo" : "Gas Travel"}
+                onClick={
+                  item.type === "promo"
+                    ? () => {
+                        document
+                          .getElementById("promo")
+                          ?.scrollIntoView({ behavior: "smooth" });
+                      }
+                    : () => {
+                        router.push("/activity#travel");
+                        setTimeout(() => {
+                          document
+                            .getElementById("travel")
+                            ?.scrollIntoView({ behavior: "smooth" });
+                        }, 500);
+                      }
+                }
+              />
+            ))}
+          </div>
+        </section>
+      </div>
 
       <Footer />
     </div>

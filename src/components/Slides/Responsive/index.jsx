@@ -13,7 +13,8 @@ const SlideResponsive = (props) => {
   const router = useRouter();
 
   const settings = {
-    infinite: false,
+    centerMode: true,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -22,6 +23,7 @@ const SlideResponsive = (props) => {
     cssEase: "linear",
     nextArrow: null,
     prevArrow: null,
+
     responsive: [
       {
         breakpoint: 1024,
@@ -51,7 +53,7 @@ const SlideResponsive = (props) => {
 
   return (
     <div className="xl:pt-10 pt-5">
-      <div className="flex justify-between items-center xl:px-20 px-4">
+      <div className="flex justify-between items-center xl:px-20 px-5">
         <div className="flex items-end pb-5 gap-x-3">
           <h1 id={id} className="font-bold text-2xl">
             {title}
@@ -73,17 +75,21 @@ const SlideResponsive = (props) => {
           </p>
         </div>
       </div>
-      <div className="xl:px-16">
-        <Slider {...settings} ref={sliderRef}>
-          {items.map((item) => (
-            <Card
-              item={item}
-              key={item.id}
-              title={title}
-              onClick={() => router.push(`/${title.toLowerCase()}/${item.id}`)}
-            />
-          ))}
-        </Slider>
+      <div className="">
+        <div className="w-full overflow-hidden">
+          <Slider {...settings} ref={sliderRef}>
+            {items.map((item) => (
+              <Card
+                item={item}
+                key={item.id}
+                title={title}
+                onClick={() =>
+                  router.push(`/${title.toLowerCase()}/${item.id}`)
+                }
+              />
+            ))}
+          </Slider>
+        </div>
       </div>
     </div>
   );

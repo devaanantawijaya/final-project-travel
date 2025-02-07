@@ -7,7 +7,9 @@ const Card = (props) => {
   return (
     <div
       key={key}
-      className={`mx-4 ${totalItems === 2 && !item.price && "sm:flex gap-x-5"} mb-5 sm:mb-0`}
+      className={`mx-4 ${
+        totalItems === 2 && !item.price && "sm:flex gap-x-5"
+      } mb-5 sm:mb-0`}
     >
       <div className="">
         <img
@@ -31,23 +33,27 @@ const Card = (props) => {
       >
         <div>
           <h1 className="font-bold">
-            {item.title && item.title.length > 25
-              ? item.title.slice(0, 25) + "..."
+            {item.title && item.title.length > 18
+              ? item.title.slice(0, 18) + "..."
               : item.title}
             {item.name && item.name}
           </h1>
-          <div className="flex gap-x-3">
-            {item.price_discount && (
+          {item.price && (
+            <div className="flex flex-col xl:flex-row gap-x-3">
               <p className="line-through text-gray-500">
-                Rp. {(item.price + item.price_discount).toLocaleString("id-ID")}
+                Rp.{" "}
+                {item.price_discount
+                  ? (item.price + item.price_discount).toLocaleString("id-ID")
+                  : "0"}
               </p>
-            )}
-            {item.price && <p>Rp. {item.price.toLocaleString("id-ID")}</p>}
-          </div>
+              <p>Rp. {item.price.toLocaleString("id-ID")}</p>
+            </div>
+          )}
+
           {totalItems === 2 && !item.price ? (
             <p>
-              {item.description && item.description.length > 40
-                ? item.description.slice(0, 40) + "..."
+              {item.description && item.description.length > 15
+                ? item.description.slice(0, 15) + "..."
                 : item.description}
             </p>
           ) : (
