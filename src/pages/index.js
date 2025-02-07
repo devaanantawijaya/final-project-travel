@@ -1,5 +1,4 @@
-// import Image from "next/image";
-import Navbar from "@/components/Navbar";
+
 import { useEffect } from "react";
 import { usePromos } from "@/hooks/usePromos";
 import SlideBanners from "@/components/Slides/Banner";
@@ -13,6 +12,7 @@ import { useBanners } from "@/hooks/useBanner";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { MdTravelExplore } from "react-icons/md";
 import Footer from "@/components/Footer";
+import Navbar from "../components/Navbar";
 
 const HomePage = () => {
   const { banners, setLoadingBanners, getBanners } = useBanners();
