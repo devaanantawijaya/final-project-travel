@@ -55,7 +55,7 @@ const TransaksiPage = () => {
         </h1>
 
         {/* Button Filter */}
-        <div className="grid sm:rid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 text-center">
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 text-center">
           {["pending", "success", "cancelled", "failed"].map((status) => (
             <div
               key={status}
@@ -124,7 +124,7 @@ const TransaksiPage = () => {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex justify-center mt-1 space-x-2">
+          <div className="flex justify-center mt-1 space-x-2 pb-5">
             <Button
               title="Prev"
               text={` hover:text-orange-400 ${

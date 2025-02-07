@@ -599,7 +599,7 @@ const UserPage = () => {
                     </h1>
 
                     {/* Button Filter Transaction */}
-                    <div className="grid grid-cols-4 gap-x-2 text-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
                       {["pending", "success", "cancelled", "failed"].map(
                         (status) => (
                           <button
@@ -708,7 +708,7 @@ const UserPage = () => {
                     </div>
 
                     {/* Pagination */}
-                    <div className="flex justify-center mt-4 gap-4">
+                    <div className="flex justify-center mb-5 gap-4">
                       <button
                         onClick={() =>
                           setCurrentPage((prev) => Math.max(prev - 1, 1))
@@ -845,7 +845,7 @@ const UserPage = () => {
                   </div>
 
                   {/* Pagination */}
-                  <div className="flex justify-center mt-4 gap-4">
+                  <div className="flex justify-center mb-5 gap-4">
                     <button
                       onClick={() =>
                         setCurrentPageAllUser((prev) => Math.max(prev - 1, 1))
@@ -1002,7 +1002,7 @@ const UserPage = () => {
                   </div>
 
                   {/* Pagination */}
-                  <div className="flex justify-center mt-4 gap-4">
+                  <div className="flex justify-center mb-5 gap-4">
                     <button
                       onClick={() =>
                         setCurrentPageBanners((prev) => Math.max(prev - 1, 1))
@@ -1148,7 +1148,7 @@ const UserPage = () => {
                   </div>
 
                   {/* Pagination */}
-                  <div className="flex justify-center mt-4 gap-4">
+                  <div className="flex justify-center mb-5 gap-4">
                     <button
                       onClick={() =>
                         setCurrentPagePromos((prev) => Math.max(prev - 1, 1))
@@ -1303,7 +1303,7 @@ const UserPage = () => {
                   </div>
 
                   {/* Pagination */}
-                  <div className="flex justify-center mt-4 gap-4">
+                  <div className="flex justify-center mb-5 gap-4">
                     <button
                       onClick={() =>
                         setCurrentPageCategories((prev) =>
@@ -1458,7 +1458,7 @@ const UserPage = () => {
                   </div>
 
                   {/* Pagination */}
-                  <div className="flex justify-center mt-4 gap-4">
+                  <div className="flex justify-center mb-5 gap-4">
                     <button
                       onClick={() =>
                         setCurrentPageActivities((prev) =>
