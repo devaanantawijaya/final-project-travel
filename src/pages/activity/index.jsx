@@ -54,7 +54,7 @@ const ActivityPage = () => {
 
       <SlideResponsive id="travel" title="Category" items={categories} />
 
-      <div className="px-16 pt-10">
+      <div className="sm:px-16 pt-10 px-5">
         <h1 className="px-4 font-bold text-2xl pb-5">All Activity Tour</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full items-start">
           {activities.map((item) => (
