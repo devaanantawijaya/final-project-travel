@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { useUser } from "@/context/userContext";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
@@ -129,7 +130,7 @@ const RegisterPage = () => {
           />
         </div>
 
-        <div className="flex justify-center items-center sm:px-0 px-5 absolute xl:top-20 xl:right-28 xl:inset-auto inset-0">
+        <div className="flex justify-center items-center sm:px-0 px-5 absolute xl:top-20 top-20 xl:right-28 xl:inset-auto inset-0">
           <div className="bg-slate-100 sm:p-10 p-8 w-96 rounded-2xl shadow-2xl">
             <div className="text-center mb-5">
               <h1 className="text-4xl font-bold text-orange-400">REGISTER</h1>
@@ -233,6 +234,7 @@ const RegisterPage = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };
