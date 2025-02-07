@@ -67,12 +67,12 @@ const LoginPage = () => {
   return (
     <div>
       <Navbar />
-      <div className="relative">
+      <div className="relative w-full h-screen overflow-hidden">
         <div className="w-full xl:aspect-[16/8] overflow-hidden sm:aspect-square aspect-[9/16]">
           <img
             src="/images/liburan.jpg"
             alt="bg-liburan"
-            className="w-full h-full object-cover"
+            className="absolute top-0 left-0 w-full h-full object-cover"
           />
         </div>
 

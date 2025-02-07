@@ -120,16 +120,16 @@ const RegisterPage = () => {
   return (
     <div>
       <Navbar />
-      <div className="relative">
+      <div className="relative w-full h-screen overflow-hidden">
         <div className="w-full h-full xl:aspect-[16/8] overflow-hidden sm:aspect-square aspect-[9/16]">
           <img
             src="/images/liburan.jpg"
             alt="bg-liburan"
-            className="w-full h-full object-cover"
+            className="absolute top-0 left-0 w-full h-full object-cover"
           />
         </div>
 
-        <div className="flex justify-center items-center sm:px-0 px-5 absolute xl:top-20 top-20 xl:right-28 xl:inset-auto inset-0">
+        <div className="flex justify-center items-center sm:px-0 px-5 absolute xl:top-20 top-0 xl:right-28 xl:inset-auto inset-0">
           <div className="bg-slate-100 sm:p-10 p-8 w-96 rounded-2xl shadow-2xl">
             <div className="text-center mb-5">
               <h1 className="text-4xl font-bold text-orange-400">REGISTER</h1>
