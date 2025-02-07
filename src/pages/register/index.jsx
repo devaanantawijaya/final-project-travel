@@ -121,7 +121,7 @@ const RegisterPage = () => {
     <div>
       <Navbar />
       <div className="relative">
-        <div className="w-full xl:aspect-[16/8] overflow-hidden sm:aspect-square aspect-[9/16]">
+        <div className="w-full h-full xl:aspect-[16/8] overflow-hidden sm:aspect-square aspect-[9/16]">
           <img
             src="/images/liburan.jpg"
             alt="bg-liburan"

@@ -38,32 +38,35 @@ const DetailCategories = () => {
       <Navbar />
       <div className="pt-24 lg:px-52 px-5">
         {/* Banner */}
-        <div className="relative">
-          {/* Judul */}
-          <div className="absolute lg:w-full left-10 bottom-10 w-40">
-            <p className="bg-white w-fit px-3 py-1 text-orange-400 font-bold rounded-xl">
-              Category
-            </p>
-            <h1 className="font-bold text-2xl text-orange-400 pt-2">
-              {detailCategories[0]?.category?.name.toUpperCase()}
-            </h1>
-            <p className="py-2 text-white text-xl">
-              Daftar travel yang telah dikelompokkan sesuai kategori{" "}
-              {detailCategories[0]?.category?.name?.toLowerCase()}.
-            </p>
-          </div>
+        <div className="relative overflow-hidden sm:aspect-[16/7] w-full aspect-[1/1] rounded-3xl border-4 border-orange-400 shadow-xl">
+          {/* Overlay hitam transparan */}
+          <div className="absolute inset-0 bg-black bg-opacity-70"></div>
 
-          {/* Gambar */}
-          <div className="overflow-hidden sm:aspect-[16/7] w-full aspect-[1/1] rounded-3xl border-4 border-orange-400 shadow-xl">
-            <img
-              src={detailCategories[0]?.category?.imageUrl}
-              alt={detailCategories[0]?.category?.name}
-              className="w-full h-full object-left object-cover"
-              onError={(e) => {
-                e.currentTarget.onerror = null;
-                e.target.src = "/images/no-foto.jpg";
-              }}
-            />
+          <img
+            src={detailCategories[0]?.category?.imageUrl}
+            alt={detailCategories[0]?.category?.name}
+            className="w-full h-full object-left object-cover"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.target.src = "/images/no-foto.jpg";
+            }}
+          />
+
+          {/* Teks di atas gambar */}
+          <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-xl">
+            {/* Judul */}
+            <div className="absolute lg:w-full left-10 bottom-10 w-40">
+              <p className="bg-white w-fit px-3 py-1 text-orange-400 font-bold rounded-xl">
+                Category
+              </p>
+              <h1 className="font-bold text-2xl text-orange-400 pt-2">
+                {detailCategories[0]?.category?.name.toUpperCase()}
+              </h1>
+              <p className="py-2 text-white text-xl">
+                Daftar travel yang telah dikelompokkan sesuai kategori{" "}
+                {detailCategories[0]?.category?.name?.toLowerCase()}.
+              </p>
+            </div>
           </div>
         </div>
 
