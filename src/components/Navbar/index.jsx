@@ -320,7 +320,6 @@ const Navbar = () => {
             <Link href="/">
               <li className="hover:text-orange-400">Home</li>
             </Link>
-
             <Link href="/activity">
               <li className="hover:text-orange-400">Activity Tour</li>
             </Link>
@@ -329,6 +328,9 @@ const Navbar = () => {
             </Link>
             <Link href="/contact">
               <li className="hover:text-orange-400">Contact Us</li>
+            </Link>
+            <Link href="/login">
+              <li className="hover:text-orange-400">Login</li>
             </Link>
           </ul>
         </div>
