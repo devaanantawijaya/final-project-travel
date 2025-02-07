@@ -68,7 +68,7 @@ const HomePage = () => {
           />
         }
       />
-      <div className="xl:pt-10 pt-5">
+      <section className="xl:pt-10 pt-5">
         <h1 className="font-bold text-2xl xl:px-20 px-4">
           Kenapa harus di Travely?
         </h1>
@@ -98,7 +98,7 @@ const HomePage = () => {
             />
           ))}
         </div>
-      </div>
+      </section>
 
       <Footer />
     </div>
