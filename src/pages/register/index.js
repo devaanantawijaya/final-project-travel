@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import Navbar from "../../src/components/Navbar";
+import Navbar from "@/components/Navbar";
 import { useUser } from "@/context/userContext";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
 import axios from "axios";

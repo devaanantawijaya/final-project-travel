@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
-import Navbar from "../../src/components/Navbar";
+import Navbar from "@/components/Navbar";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
 import axios from "axios";
 import { useRouter } from "next/router";

@@ -1,4 +1,4 @@
-import Navbar from "../../src/components/Navbar";
+import Navbar from "@/components/Navbar";
 import SlideBanners from "@/components/Slides/Banner";
 import { useBanners } from "@/hooks/useBanner";
 import { useEffect } from "react";

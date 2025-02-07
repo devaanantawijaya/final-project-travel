@@ -1,5 +1,5 @@
 // import Image from "next/image";
-import Navbar from "../../src/components/Navbar";
+import Navbar from "@/components/Navbar";
 import { useEffect } from "react";
 import { usePromos } from "@/hooks/usePromos";
 import SlideBanners from "@/components/Slides/Banner";
