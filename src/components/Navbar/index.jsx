@@ -173,7 +173,9 @@ const Navbar = () => {
           <button
             onClick={() => setIsOpenHamburger(!isOpenHamburger)}
             disabled={isOpenProfile && true}
-            className="p-1.5 rounded-md border-orange-500 bg-orange-400 xl:hidden block "
+            className={`p-1.5 rounded-md border-orange-500  xl:hidden block ${
+              isOpenHamburger ? "bg-orange-600" : "bg-orange-400"
+            }`}
           >
             <RxHamburgerMenu className="text-xl text-white font-extrabold" />
           </button>
