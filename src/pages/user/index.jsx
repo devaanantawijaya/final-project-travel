@@ -1,5 +1,4 @@
 import Authorization from "@/Authorization";
-import Navbar from "../../components/Navbar";
 import { useUser } from "@/context/userContext";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
 import useAllTransaction from "@/hooks/useAllTransaction";
@@ -19,6 +18,7 @@ import { FaWindowClose } from "react-icons/fa";
 import { usePromos } from "@/hooks/usePromos";
 import useCategories from "@/hooks/useCategories";
 import useActivities from "@/hooks/useActivities";
+import Navbar from "@/components/Navbar";
 
 const UserPage = () => {
   const [activePage, setActivePage] = useState("Data Transaksi");

@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { usePromos } from "@/hooks/usePromos";
 import SlideBanners from "@/components/Slides/Banner";

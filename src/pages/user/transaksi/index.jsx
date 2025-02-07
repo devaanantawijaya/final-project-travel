@@ -1,6 +1,6 @@
 import Authorization from "@/Authorization";
 import Button from "@/components/Button";
-import Navbar from "../../../components/Navbar";
+import Navbar from "@/components/Navbar";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
 import axios from "axios";
 import { getCookie } from "cookies-next";
