@@ -1,4 +1,4 @@
-import Navbar from "../../components/Navbar";
+
 import SlideBanners from "@/components/Slides/Banner";
 import { useBanners } from "@/hooks/useBanner";
 import { useEffect } from "react";
@@ -10,6 +10,7 @@ import Card from "@/components/Card";
 import SlideResponsive from "@/components/Slides/Responsive";
 import useActivities from "@/hooks/useActivities";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 const ActivityPage = () => {
   const { banners, setLoadingBanners, getBanners } = useBanners();
