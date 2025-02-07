@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "../../src/components/Navbar";
 import SlideBanners from "@/components/Slides/Banner";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
 import axios from "axios";

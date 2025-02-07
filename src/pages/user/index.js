@@ -1,5 +1,5 @@
 import Authorization from "@/Authorization";
-import Navbar from "@/components/Navbar";
+import Navbar from "../../src/components/Navbar";
 import { useUser } from "@/context/userContext";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
 import useAllTransaction from "@/hooks/useAllTransaction";
