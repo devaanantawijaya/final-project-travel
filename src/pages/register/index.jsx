@@ -1,5 +1,4 @@
 import Button from "@/components/Button";
-import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { useUser } from "@/context/userContext";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
@@ -234,7 +233,6 @@ const RegisterPage = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };
