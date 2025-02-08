@@ -102,14 +102,14 @@ const DetailPromo = () => {
             )}
           </div>
         </div>
-        <div className="flex justify-center pb-10 shadow-xl">
+        <div className="flex justify-center pb-10">
           <Button
             title={
               <div className="flex items-center sm:gap-x-3 gap-x-1 justify-center">
                 Gas Travely <MdTravelExplore className="sm:text-6xl text-4xl" />
               </div>
             }
-            bg="bg-orange-400 hover:bg-orange-600 rounded-full"
+            bg="bg-orange-400 hover:bg-orange-600 rounded-full shadow-xl"
             p="lg:px-20 lg:py-3 w-full lg:w-fit py-2"
             text="text-white lg:text-5xl text-2xl"
             onClick={() => {
