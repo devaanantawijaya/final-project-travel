@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { API_KEY, BASE_URL } from "@/helper/endpoint";
+import Image from "next/image";
 
 const Navbar = () => {
   const { user, setUser } = useUser();
@@ -183,10 +184,11 @@ const Navbar = () => {
           {/* To Home */}
           <Link href="/">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 src="/images/logo-travely.png"
                 alt="logo travely"
-                layout="fixed"
+                width={41} 
+                height={40} 
                 className="object-contain"
               />
               <h1 className="font-bold text-xl hover:text-orange-400 text-black hidden xl:block">
