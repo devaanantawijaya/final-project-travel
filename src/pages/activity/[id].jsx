@@ -195,35 +195,23 @@ const DetailActivity = () => {
             Peta Location
           </h1>
           <div className="w-full aspect-[16/9] relative">
-            {detailActivities.location_maps ? (
-              detailActivities.location_maps.includes("<iframe") ? (
-                <div
-                  className="absolute inset-0 w-full h-full"
-                  dangerouslySetInnerHTML={{
-                    __html: detailActivities.location_maps
-                      .replace(/width=['"]\d+['"]/, "width='100%'")
-                      .replace(/height=['"]\d+['"]/, "height='100%'")
-                      .replace(
-                        /referrerpolicy=['"][^'"]*['"]/,
-                        "referrerpolicy='no-referrer-when-downgrade'"
-                      )
-                      .replace(
-                        /sandbox=['"][^'"]*['"]/,
-                        "sandbox='allow-scripts allow-same-origin'"
-                      ),
-                  }}
-                />
-              ) : (
-                <iframe
-                  src={detailActivities.location_maps}
-                  className="w-full h-full"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  sandbox="allow-scripts allow-same-origin"
-                  loading="lazy"
-                ></iframe>
-              )
+            {detailActivities.location_maps &&
+            detailActivities.location_maps.includes("<iframe") ? (
+              <div
+                className="absolute inset-0 w-full h-full"
+                dangerouslySetInnerHTML={{
+                  __html: detailActivities.location_maps
+                    .replace(/width=['"]\d+['"]/, "width='100%'")
+                    .replace(/height=['"]\d+['"]/, "height='100%'"),
+                }}
+              />
             ) : (
-              <p className="text-gray-500">Lokasi tidak tersedia</p>
+              <iframe
+                src={detailActivities.location_maps}
+                className="w-full h-full"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             )}
           </div>
         </div>
