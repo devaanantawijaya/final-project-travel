@@ -1,9 +1,11 @@
 import Button from "../Button";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Image from "next/image";
+import { useState } from "react";
 
 const Card = (props) => {
   const { item, key, title, totalItems, onClick } = props;
+  const [imageSrc, setImageSrc] = useState("/images/no-foto.jpg");
 
   return (
     <div
@@ -14,22 +16,22 @@ const Card = (props) => {
     >
       <div className="">
         <Image
-          src={
-            item.imageUrl && item.imageUrl !== ""
-              ? item.imageUrl
-              : item.imageUrls?.[0] && item.imageUrls[0] !== ""
-              ? item.imageUrls[0]
-              : "/images/no-foto.jpg"
-          }
+          src={imageSrc}
           alt={item.title || item.name}
-          width={500} // Sesuaikan ukuran gambar
-          height={300} // Sesuaikan ukuran gambar
+          width={500}
+          height={300}
           className="rounded-lg aspect-[16/9] w-full object-cover object-center h-40 border-2 border-orange-200"
-          onError={(e) => {
-            e.currentTarget.onerror = null;
-            e.currentTarget.src = "/images/no-foto.jpg";
-          }}
-          quality={80} // Optimasi kualitas gambar
+          onError={() => setImageSrc("/images/no-foto.jpg")}
+          onLoad={() =>
+            setImageSrc(
+              item.imageUrl && item.imageUrl !== ""
+                ? item.imageUrl
+                : item.imageUrls?.[0] && item.imageUrls[0] !== ""
+                ? item.imageUrls[0]
+                : "/images/no-foto.jpg"
+            )
+          }
+          quality={80}
           priority
         />
       </div>
