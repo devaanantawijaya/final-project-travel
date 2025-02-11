@@ -4,6 +4,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ["travel-journal-api-bootcamp.do.dibimbing.id"], // Tambahkan domain gambar
+  },
 };
 
 export default nextConfig;

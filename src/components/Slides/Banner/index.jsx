@@ -4,11 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React, { Component, useEffect } from "react";
 import Slider from "react-slick";
-
 import Button from "@/components/Button";
-
 import CTA from "@/components/CTA";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const SlideBanners = (props) => {
   const {
@@ -81,14 +80,18 @@ const SlideBanners = (props) => {
                 />
               </div>
               <div className="absolute inset-0 bg-opacity-5 bg-gradient-to-b from-black/50 via-black/80 to-black/50 z-10"></div>
-              <img
-                src={item.imageUrl ? item.imageUrl : item}
+              <Image
+                src={item.imageUrl ? item.imageUrl : "/images/no-foto.jpg"}
                 alt={item.name ? item.name : `banner-image-${idx}`}
+                width={500}
+                height={300}
                 className="w-full h-full object-cover object-center"
                 onError={(e) => {
                   e.currentTarget.onerror = null;
-                  e.target.src = "/images/no-foto.jpg";
+                  e.currentTarget.src = "/images/no-foto.jpg";
                 }}
+                quality={80} 
+                priority
               />
             </div>
           ))}
