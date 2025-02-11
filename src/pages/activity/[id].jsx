@@ -198,7 +198,7 @@ const DetailActivity = () => {
             {detailActivities.location_maps &&
             detailActivities.location_maps.includes("<iframe") ? (
               <div
-                className="absolute inset-0 w-full h-full"
+                className="relative w-full h-full" // Ukuran tetap agar tidak terjadi shifting
                 dangerouslySetInnerHTML={{
                   __html: detailActivities.location_maps
                     .replace(/width=['"]\d+['"]/, "width='100%'")
@@ -208,9 +208,10 @@ const DetailActivity = () => {
             ) : (
               <iframe
                 src={detailActivities.location_maps}
-                className="w-full h-full"
+                className="w-full h-64 rounded-lg border"
                 sandbox="allow-scripts allow-same-origin allow-popups"
                 referrerPolicy="no-referrer-when-downgrade"
+                loading="lazy"
               />
             )}
           </div>
