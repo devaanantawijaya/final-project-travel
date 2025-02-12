@@ -6,6 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MdTravelExplore } from "react-icons/md";
+import Image from "next/image";
 
 const DetailPromo = () => {
   const [detailPromo, setDetailPromo] = useState([]);
@@ -41,13 +42,14 @@ const DetailPromo = () => {
         </h1>
         <div className="sm:pb-10 pb-5">
           <div className="overflow-hidden sm:aspect-[16/7] w-full aspect-[1/1] rounded-3xl border-4 border-orange-400 shadow-xl">
-            <img
-              src={detailPromo.imageUrl}
+            <Image
+              src={detailPromo.imageUrl || "/images/no-foto.jpg"}
               alt={detailPromo.title}
+              width={500}
+              height={500}
               className="w-full h-full object-left object-cover"
               onError={(e) => {
-                e.currentTarget.onerror = null;
-                e.target.src = "/images/no-foto.jpg";
+                e.currentTarget.src = "/images/no-foto.jpg";
               }}
             />
           </div>
