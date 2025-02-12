@@ -6,7 +6,7 @@ import Card from "@/components/Card";
 import { useRouter } from "next/router";
 
 const SlideResponsive = (props) => {
-  const { title, items, extraTitle, id, loading } = props;
+  const { title, items, extraTitle, id } = props;
 
   const sliderRef = useRef(null);
 
@@ -76,24 +76,20 @@ const SlideResponsive = (props) => {
         </div>
       </div>
       <div className="">
-        {loading ? (
-          <div className="xl:px-20 px-5">Loading...</div>
-        ) : (
-          <div className="w-full overflow-hidden">
-            <Slider {...settings} ref={sliderRef}>
-              {items.map((item) => (
-                <Card
-                  item={item}
-                  key={item.id}
-                  title={title}
-                  onClick={() =>
-                    router.push(`/${title.toLowerCase()}/${item.id}`)
-                  }
-                />
-              ))}
-            </Slider>
-          </div>
-        )}
+        <div className="w-full overflow-hidden">
+          <Slider {...settings} ref={sliderRef}>
+            {items.map((item) => (
+              <Card
+                item={item}
+                key={item.id}
+                title={title}
+                onClick={() =>
+                  router.push(`/${title.toLowerCase()}/${item.id}`)
+                }
+              />
+            ))}
+          </Slider>
+        </div>
       </div>
     </div>
   );
