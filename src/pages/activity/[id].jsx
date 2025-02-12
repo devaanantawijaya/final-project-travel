@@ -195,24 +195,26 @@ const DetailActivity = () => {
             Peta Location
           </h1>
           <div className="w-full aspect-[16/9] relative">
-            {detailActivities.location_maps &&
-            detailActivities.location_maps.includes("<iframe") ? (
-              <div
-                className="relative w-full h-full" // Ukuran tetap agar tidak terjadi shifting
-                dangerouslySetInnerHTML={{
-                  __html: detailActivities.location_maps
-                    .replace(/width=['"]\d+['"]/, "width='100%'")
-                    .replace(/height=['"]\d+['"]/, "height='100%'"),
-                }}
-              />
+            {detailActivities.location_maps ? (
+              <div className="relative w-full h-64">
+                <img
+                  src={`https://maps.googleapis.com/maps/api/staticmap?center=-6.1258263,106.8428182&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C-6.1258263,106.8428182&key=YOUR_GOOGLE_MAPS_API_KEY`}
+                  alt="Google Maps"
+                  className="w-full h-full object-cover rounded-lg border"
+                />
+                <a
+                  href={detailActivities.location_maps}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-2 right-2 bg-white text-black px-3 py-1 rounded-lg shadow"
+                >
+                  Lihat di Google Maps
+                </a>
+              </div>
             ) : (
-              <iframe
-                src={detailActivities.location_maps}
-                className="w-full h-64 rounded-lg border"
-                sandbox="allow-scripts allow-same-origin allow-popups"
-                referrerPolicy="no-referrer-when-downgrade"
-                loading="lazy"
-              />
+              <div className="w-full h-64 flex items-center justify-center bg-gray-200 rounded-lg">
+                <p className="text-gray-600">Peta tidak tersedia</p>
+              </div>
             )}
           </div>
         </div>
