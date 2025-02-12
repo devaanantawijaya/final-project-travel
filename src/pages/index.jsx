@@ -14,7 +14,7 @@ import Footer from "@/components/Footer";
 import Navbar from "../components/Navbar";
 
 const HomePage = () => {
-  const { banners, setLoadingBanners, getBanners } = useBanners();
+  const { banners, loadingBanners, getBanners } = useBanners();
   const { promos, LoadingPromos, getPromos } = usePromos();
   const { activities, loadingActivities, getActivities } = useActivities();
 
@@ -55,7 +55,12 @@ const HomePage = () => {
       />
 
       <div className="sm:px-0">
-        <SlideResponsive id="promo" title="Promo" items={promos} />
+        <SlideResponsive
+          id="promo"
+          title="Promo"
+          items={promos}
+          loading={LoadingPromos}
+        />
 
         <SlideResponsive
           title="Activity"
@@ -67,6 +72,7 @@ const HomePage = () => {
               onClick={() => router.push(`/activity`)}
             />
           }
+          loading={loadingActivities}
         />
 
         <section className="xl:pt-10 pt-5">

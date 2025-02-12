@@ -52,20 +52,29 @@ const ActivityPage = () => {
         onSubmit={() => router.push("/#promo")}
       />
 
-      <SlideResponsive id="travel" title="Category" items={categories} />
+      <SlideResponsive
+        id="travel"
+        title="Category"
+        items={categories}
+        loading={loadingCategories}
+      />
 
       <div className="sm:px-16 pt-10 px-5">
         <h1 className="px-4 font-bold text-2xl pb-5">All Activity Tour</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full items-start">
-          {activities.map((item) => (
-            <Card
-              key={item.id}
-              item={item}
-              totalItems={activities.length}
-              title="Activity"
-              onClick={() => router.push(`/activity/${item.id}`)}
-            />
-          ))}
+          {loadingActivities ? (
+            <div>Loading...</div>
+          ) : (
+            activities.map((item) => (
+              <Card
+                key={item.id}
+                item={item}
+                totalItems={activities.length}
+                title="Activity"
+                onClick={() => router.push(`/activity/${item.id}`)}
+              />
+            ))
+          )}
         </div>
       </div>
       <Footer />
