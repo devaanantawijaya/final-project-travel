@@ -6,9 +6,9 @@ const nextConfig = {
   },
   images: {
     domains: ["travel-journal-api-bootcamp.do.dibimbing.id", "media.kompas.tv"],
-    unoptimized: true, 
+    unoptimized: true,
   },
-  output: 'export', 
+  output: "export",
 };
 
 export default nextConfig;
