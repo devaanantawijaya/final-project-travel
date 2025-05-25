@@ -18,7 +18,7 @@ const RegisterPage = () => {
     email: "",
     password: "",
     passwordRepeat: "",
-    role: "",
+    role: "user",
     phoneNumber: "",
   });
 
@@ -194,7 +194,7 @@ const RegisterPage = () => {
             </div>
 
             {/* Role */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <select
                 className="border-2 w-full text-xl px-5 py-2 rounded-lg border-orange-400 bg-white focus:outline-none"
                 onChange={(e) =>
@@ -207,7 +207,7 @@ const RegisterPage = () => {
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
               </select>
-            </div>
+            </div> */}
 
             {/* Button */}
             <div className="flex justify-center">
